@@ -1,0 +1,76 @@
+<p>
+    <?php
+    if (isset($_SESSION['action_result'])) {
+        echo $_SESSION['action_result'];
+        unset($_SESSION['action_result']);
+    }
+    ?>
+</p>
+<form name="vacancies_add" method="post">
+    <table>
+
+        <tr>
+            <td>
+                Job title
+            </td>
+            <td>
+                <input type="text" name="title" value="<?php echo @$_POST['title'] ?>" >
+            </td>
+            <td><?php echo @$add_errors['title'] ?></td>
+        </tr>
+        <tr>
+            <td>
+                Department
+            </td>
+            <td>
+                <select form="vacancies_add" name="<?php echo department::$db_id_field_name; ?>">        
+                    <?php
+                    foreach (department::$departments as $k => $v) {
+                        if (@$_SESSION[department::$db_id_field_name] == $v) {
+                            $selected = "selected";
+                        } else {
+                            $selected = "";
+                        }
+                        echo "<option " . $selected . " value=\"" . $v . "\">" . $k . "</option>";
+                    }
+                    ?>               
+                </select>
+            </td>
+            <td><?php echo @$add_errors[department::$db_id_field_name] ?></td>
+        </tr>
+        <tr>
+            <td>
+                Vacancy language 
+            </td>
+            <td>
+                <select form="vacancies_add" name="<?php echo vacancies_filter::$inputname_language; ?>">
+                    <?php
+                    foreach (vacancies_filter::$supported_languages as $k => $v) {
+                        if ($_SESSION[vacancies_filter::$inputname_language] == $v) {
+                            $selected = "selected";
+                        } else {
+                            $selected = "";
+                        }
+                        echo "<option " . $selected . " value=\"" . $v . "\">" . $k . "</option>";
+                    }
+                    ?>               
+                </select>
+            </td>
+            <td><?php echo @$add_errors[vacancies_filter::$inputname_language] ?></td>
+        </tr>
+        <tr>
+            <td>
+                Description
+            </td>
+            <td>
+                <textarea name="description" value="<?php echo @$_POST['description'] ?>"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" name="add_new_vacancy" value="Add" >
+            </td>
+        </tr>
+    </table>
+
+</form>

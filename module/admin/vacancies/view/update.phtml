@@ -1,0 +1,89 @@
+<p>
+<form name="vacancies_update" method="post">
+    <table>
+        <?php
+        for ($i = 0; $i < count($result_array); $i++) {
+            ?>
+            <tr>
+                <td>
+                    id
+                </td>
+                <td>
+                    <?php echo $result_array[$i][0]; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    title
+                </td>
+                <td>
+                    <input type="text" name="title_<?php echo $i ?>" value="<?php echo $result_array[$i][2]; ?>"
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    department
+                </td>
+
+                <td>
+                    <select form="vacancies_update" name="<?php echo department::$db_id_field_name; ?>">        
+                        <?php
+                        foreach (department::$departments as $k => $v) {
+                            if ($result_array[$i][1] == $v) {
+                                $selected = "selected";
+                            } else {
+                                $selected = "";
+                            }
+                            echo "<option " . $selected . " value=\"" . $v . "\">" . $k . "</option>";
+                        }
+                        ?>               
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    language
+                </td>
+                <td>
+                    <?php echo vacancies_filter::$current_language; ?>
+                    <select form="vacancies_update" name="<?php echo vacancies_filter::$inputname_language . "_" . $i; ?>">
+                        <?php
+                        foreach (vacancies_filter::$supported_languages as $k => $v) {
+                            if (isset($_POST[vacancies_filter::$inputname_language . "_" . $i])) {
+                                if ($_POST[vacancies_filter::$inputname_language . "_" . $i] == $v) {
+                                    $selected = "selected";
+                                } else {
+                                    $selected = "";
+                                }
+                            } else {
+
+                                if (vacancies_filter::$current_language == $v) {
+                                    $selected = "selected";
+                                } else {
+                                    $selected = "";
+                                }
+                            }
+                            echo "<option " . $selected . " value=\"" . $v . "\">" . $k . "</option>";
+                        }
+                        ?>               
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    description
+                </td>
+                <td>
+                    <input type="textarea" name="description"  value="<?php echo $result_array[$i][3]; ?>">
+                </td>
+            </tr>
+            <tr><hr></tr>
+            <?php
+        }
+        ?>
+
+        <input type="hidden" name= "results_on_page" value="<?php echo count($result_array); ?>">
+        <input type="submit"  name="update" value="update">
+    </table>
+</form>
+</p>
