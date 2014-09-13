@@ -10,16 +10,16 @@ class DB {
     static public function _($key = 0) {
         if (!isset(self::$mysqli['$key'])) {
             if (!isset(self::$connect['server'])) {
-                self::$connect['server'] = Core::$DB_SERVER;
+                self::$connect['server'] = Core::DB_SERVER;
             }
             if (!isset(self::$connect['user'])) {
-                self::$connect['user'] = Core::$DB_LOGIN;
+                self::$connect['user'] = Core::DB_LOGIN;
             }
             if (!isset(self::$connect['pass'])) {
-                self::$connect['pass'] = Core::$DB_PASS;
+                self::$connect['pass'] = Core::DB_PASS;
             }
             if (!isset(self::$connect['db'])) {
-                self::$connect['db'] = Core::$DB_NAME;
+                self::$connect['db'] = Core::DB_NAME;
             }
             self::$mysqli[$key] = @new mysqli (self::$connect['server'], self::$connect['user'], self::$connect['pass'], self::$connect['db']);
 
@@ -72,6 +72,9 @@ class DB {
 }
 
 class router {
+    static public $default_module = 'vacancies';
+    static public $default_page = 'show';
+
     static public function set_route_params () {
         if (isset($_GET['route'])) {
             $route = explode('/', $_GET['route']);
@@ -87,6 +90,12 @@ class router {
                     array_push ($_GET['extra'], hschAll($route[$i]));
                 }
             }
+        }
+        if (!isset($_GET['module'])) {
+            $_GET['module'] = self::$default_module;
+        }
+        if (!isset($_GET['page'])) {
+            $_GET['page'] = self::$default_page;
         }
     }
 }

@@ -11,8 +11,8 @@ ini_set('session.save_path', $_SERVER['DOCUMENT_ROOT'] .'../sessions/');
 class Core {
     // default database connection parameters
     const DB_SERVER = "localhost";
-    const DB_LOGIN = "master";
-    const DB_PASS = "ololo";
+    const DB_LOGIN = "root";
+    const DB_PASS = "ololo667";
     const DB_NAME = "veeam-test";
     
     //top menu items
