@@ -83,75 +83,6 @@ class vacancies_db_filter extends vacancies_data {
         ),
         
     );
-    
-    public function input_form_gen () {
-        ?>
-        <form id="filter" method="post">
-            <table>
-                <tr>
-                    <td>
-                        <p>filter vacancies</p>
-                    </td>
-                    <td>
-                        language
-                    </td>
-                    <td>
-                        <select form="filter" name="<?php echo vacancies_data::$supported_languages['title'] ?>" <?php echo vacancies_data::$supported_languages['required'] ?>>
-                            <option value="">default</option>
-                            <?php 
-                            foreach (vacancies_data::$supported_languages['properties'] as $k => $y) { 
-                                if (isset($_POST[vacancies_data::$supported_languages['title']])){
-                                    if ($_POST[vacancies_data::$supported_languages['title']] == $y) {
-                                        $selected = "selected";
-                                    } else {
-                                        $selected = "";
-                                    }
-                                }
-                            ?>               
-                            <option <?php echo @$selected; ?> value="<?php echo $y ?>"><?php echo $k; ?></option>                
-                        <?php
-                        } 
-                        ?>
-                        </select>
-                    </td>
-                    <?php
-                    foreach ($this->properties as $v){
-                        ?>
-                    <td><?php echo $v['title']; ?></td>
-                    <td>
-                        <select form="filter" name="<?php echo $v['title'] ?>" <?php echo $v['multiple']; echo $v['required']; ?> >
-                            <option value="">not specified</option>
-                        <?php 
-                        foreach ($v['properties'] as $k => $y) {
-                            if (isset($_POST[$v['title']])) {
-                                if ($_POST[$v['title']] == $y) {
-                                        $selected = "selected";
-                                } else {
-                                    $selected = "";
-                                }
-                            }
-                            
-                            ?>               
-                            <option <?php echo @$selected; ?> value="<?php echo $y; ?>"><?php echo $k; ?></option>                
-                        <?php
-                        } 
-                        ?>
-                        </select>
-                    </td>
-                    <?php
-                    }
-                    ?>
-                    <td>
-                        <input type="submit" value="show">
-                    </td>
-                </tr>
-            </table>
-        </form>
-<?php
-    }
-    
-    
-
 
     public function form_query_substr () {
         $substring = "";
@@ -184,21 +115,7 @@ class vacancies_db_filter extends vacancies_data {
         }
         return $result_array;
     }   
-}
-
-class vacancies_show extends vacancies_db_filter {
-    public function output ($output_array) {
-        for ($i=0; $i<count($output_array); $i++) {
-            ?>
-            <h2><?php echo $output_array[$i][2]; ?></h2>
-            <p>vacancy id: <?php echo $output_array[$i][0]; ?></p>
-            <p>department: <?php echo array_search ($output_array[$i]['dpt_id'], departments_data::$supported_departments['properties']); ?></p>
-            <p>description:<br><?php echo $output_array[$i][3]; ?></p>
-            <hr>
-            <?php
-        }
-    }   
-}     
+}    
 
 
 

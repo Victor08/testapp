@@ -1,6 +1,5 @@
 <?php
 
-$op=1;
 if ($_GET['page'] == "delete") {
     if (isset($_POST['delete'])) {
         $_GET['page'] = "delete";

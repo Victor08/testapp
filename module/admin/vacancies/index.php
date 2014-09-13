@@ -4,7 +4,7 @@
 //include_once __DIR__.'/config/config.php';
 
 //libraries
-include_once __DIR__.'/../../'.$_GET['module'].'/'.$_GET['module'].'.php';
+include_once __DIR__.'/libs/vacancies_admin.php';
 
 //router
 include_once __DIR__.'/router.php';
