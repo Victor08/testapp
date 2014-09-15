@@ -106,7 +106,7 @@ class vacancies_db_filter  {
             $result_array = $result->fetch_all(MYSQLI_BOTH);
             for ($i=0; $i<count($result_array); $i++) {
                 if (empty($result_array[$i]['title_'.$this->selected_language])) {
-                    $query = "SELECT `id`, `dpt_id`, `title_".  vacancies_data::$supported_languages['default']."`, `description_".  vacancies_data::$supported_languages['default']."` FROM `".self::$db_table."` WHERE `id`=".$result_array[$i]['id'];
+                    $query = "SELECT `id`, `dpt_id`, `title_".  vacancies_data::$supported_languages['default']."`, `description_".  vacancies_data::$supported_languages['default']."` FROM `".vacancies_data::$db_table."` WHERE `id`=".$result_array[$i]['id'];
                     $element = DB::q($query);
                     $element_array = $element->fetch_all(MYSQLI_BOTH);
                     $result_array[$i] = $element_array[0];

@@ -70,9 +70,11 @@ if (isset($_SESSION['action_result'])){
 
 <table>
     <tr>
-        <form>
-            <button name="adeeed" formaction="/admin/vacancies/add">Add new vacancy</button>
+        <td>
+        <form id="add" method="post">
+            <button form="add" formaction="/admin/vacancies/add">Add new vacancy</button>
         </form>
+        </td>
     </tr>
 <?php
 for ($i = 0; $i < count($output_array); $i++) {

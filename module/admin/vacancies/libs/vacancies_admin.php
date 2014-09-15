@@ -77,6 +77,29 @@ class vacancies_remover extends vacancies_admin_tools {
 
 class vacancies_append extends vacancies_admin_tools {
 
+    public $properties = array (
+            0=> array (
+            'title' => 'title',
+            'input_type' => 'text',
+           
+        ),
+        1=> array (
+            'title' => 'dpt_id',
+            'input_type' => 'select',
+            'properties' => array (
+                "accounting" => 1,
+                "marketing" => 2,
+                "warehouse" => 3,
+                "administration" => 4,
+            ),
+        ),
+        2=> array (
+            'title' => 'description',
+            'input_type' => 'textarea',
+            
+        ),
+    );
+    
     public function error_messenger () {
         $errors = array ();
         if (isset($_POST['add_new_vacancy'])) {
@@ -138,8 +161,9 @@ class vacancies_updater extends vacancies_admin_tools {
         
         public function __construct () {
             for ($i=0; $i<count($this->properties); $i++){
-            if (!empty($_POST[$this->properties[$i]['title']])){
-                $this->set_properties[$this->properties[$i]['title']] = htmlspecialchars($_POST[$this->properties[$i]['title']]);
+                if (!empty($_POST[$this->properties[$i]['title']])){
+                    $this->set_properties[$this->properties[$i]['title']] = htmlspecialchars($_POST[$this->properties[$i]['title']]);
+                }
             }
             if (!empty($_POST['update'])) {
                 $this->item_id = (int)($_POST['update']);
@@ -149,7 +173,7 @@ class vacancies_updater extends vacancies_admin_tools {
                 die;
             }
         }
-    }
+    
     
     public function error_messenger () {
         $errors = array ();
