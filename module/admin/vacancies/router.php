@@ -1,5 +1,5 @@
 <?php
-
+/*
 if ($_GET['page'] == "delete") {
     if (isset($_POST['delete'])) {
         $_GET['page'] = "delete";
@@ -7,18 +7,9 @@ if ($_GET['page'] == "delete") {
         $_GET['page'] = 'update';
     }
 }
+  */
 
-if (file_exists ( __DIR__.'/'.$_GET['page'].'.php')){
-        include_once __DIR__.'/'.$_GET['page'].'.php';
-    } else {
-        include_once __DIR__.'/../module/errors/view/404.phtml';
-        exit();
-    }
+ include_once router::if_exists( __DIR__.'/'.$_GET['page'].'.php');
 
 
-if (file_exists ( __DIR__.'/view/'.$_GET['page'].'.phtml')){
-        include_once __DIR__.'/view/'.$_GET['page'].'.phtml';
-    } else {
-        include_once __DIR__.'/../module/errors/view/404.phtml';
-        exit();
-    }
+ include_once router::if_exists( __DIR__.'/view/'.$_GET['page'].'.phtml');

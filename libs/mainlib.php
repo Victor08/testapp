@@ -74,6 +74,9 @@ class DB {
 class router {
     static public $default_module = 'vacancies';
     static public $default_page = 'show';
+    static public function errors_path() {
+        return $_SERVER['DOCUMENT_ROOT'].'/../module/errors';
+    }
 
     static public function set_route_params () {
         if (isset($_GET['route'])) {
@@ -96,6 +99,14 @@ class router {
         }
         if (!isset($_GET['page'])) {
             $_GET['page'] = self::$default_page;
+        }
+    }
+    
+    static public function if_exists ($file) {
+        if (file_exists($file)){
+            return $file;
+        } else {
+            return self::errors_path().'/404.phtml';
         }
     }
 }
