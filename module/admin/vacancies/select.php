@@ -1,7 +1,6 @@
 <?php
+include_once $_SERVER['DOCUMENT_ROOT'].'/../module/'.$_GET['module'].'/libs/vacancies.php';
 
-department::get_departments();
-$filter = new vacancies_filter();
-$result_array = $filter::filter();
-//$_SESSION['result_num']= count ($result_array);
-
+$list = new vacancies_db_filter;
+$query_substring = $list->form_query_substr($list->selected_properties);
+$output_array = $list->db_query($query_substring);
