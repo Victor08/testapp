@@ -38,7 +38,7 @@
                 Job title
             </td>
             <td>
-                <input type="text" name="title_<?php echo $addform->selected_language; ?>" value="<?php echo @$_POST['title_'.$addform->selected_language] ?>" >
+                <input type="text" name="title" value="<?php echo @$_POST['title_'.$addform->selected_language] ?>" >
             </td>
             <td><?php echo @$add_errors['title'] ?></td>
         </tr>
@@ -68,7 +68,7 @@
                 Description
             </td>
             <td>
-                <textarea name="description_<?php echo $addform->selected_language; ?>" ><?php echo @$_POST['description_'.$addform->selected_language] ?></textarea>
+                <textarea name="description" ><?php echo @$_POST['description_'.$addform->selected_language] ?></textarea>
             </td>
         </tr>
         <tr>

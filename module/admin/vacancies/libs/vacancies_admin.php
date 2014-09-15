@@ -103,7 +103,7 @@ class vacancies_append extends vacancies_admin_tools {
     public function error_messenger () {
         $errors = array ();
         if (isset($_POST['add_new_vacancy'])) {
-            if (empty($_POST['title_'.$this->selected_language])) {
+            if (empty($_POST['title'])) {
                 $errors['title'] = "this field is required";
             }
             if (empty($_POST[departments_data::$supported_departments['title']])) {
@@ -127,7 +127,12 @@ class vacancies_append extends vacancies_admin_tools {
     public function form_query_substr () {
         $substring = "";
         foreach ($this->set_properties as $k => $v){
-            $substring .= "`".$k."`= '".$v."', ";
+            if ($k == "title" || $k == 'description') {
+                $substring .="`".$k."_".$this->selected_language."`= '".$v."', ";
+            } else {
+        
+                $substring .= "`".$k."`= '".$v."', ";
+            }
         }
         if (!empty($substring)) {
             $substring = mb_substr ($substring, 0, strlen($substring)-2);
