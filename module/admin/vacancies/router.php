@@ -12,4 +12,4 @@ if ($_GET['page'] == "delete") {
  include_once router::if_exists( __DIR__.'/'.$_GET['page'].'.php');
 
 
- include_once router::if_exists( __DIR__.'/view/'.$_GET['page'].'.phtml');
+ include_once $_SERVER['DOCUMENT_ROOT'].'/../module/admin/vacancies/view/index.phtml';
