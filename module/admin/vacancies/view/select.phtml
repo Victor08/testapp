@@ -1,3 +1,11 @@
+<h1>
+<?php
+if (isset($_SESSION['action_result'])){
+    echo $_SESSION['action_result'];
+    unset($_SESSION['action_result']);
+}
+?>
+</h1>
 <form id="filter" method="post">
     <table>
         <tr>
@@ -60,22 +68,26 @@
     </table>
 </form>
 
+<table>
+    <tr>
+        <form>
+            <button name="adeeed" formaction="/admin/vacancies/add">Add new vacancy</button>
+        </form>
+    </tr>
 <?php
 for ($i = 0; $i < count($output_array); $i++) {
     ?>
-<table>
+
     <tr>
         <td>
             <h2><?php echo $output_array[$i][2]; ?></h2>
         </td>
         <td>
-            <form id="update" method="post" action="/admin/vacancies/update" >
-                <input type="hidden" name="id" value="<?php echo $output_array[$i][0]; ?>">
-                <input type="submit" value="update">
-            </form>
-            <form id="delete" method="post" action="/admin/vacancies/delete" >
-                <input type="hidden" name="id" value="<?php echo $output_array[$i][0]; ?>">
-                <input type="submit" value="delete">
+            <form id="admin_tools" method="post">
+                <button form = "admin_tools" name="update" formaction="/admin/vacancies/update" value="<?php echo $output_array[$i][0]; ?>">update</button>
+            
+                <button form = "admin_tools" name="delete" formaction="/admin/vacancies/delete" value="<?php echo $output_array[$i][0]; ?>">delete</button>
+                             
             </form>
         </td>
     </tr>
@@ -91,7 +103,11 @@ for ($i = 0; $i < count($output_array); $i++) {
         <td>
             <p>description:<br><?php echo $output_array[$i][3]; ?></p>
         </td>
+    </tr>
+    <tr>
+        <td>
     <hr>
+        </td>
     </tr>
     <?php
 }

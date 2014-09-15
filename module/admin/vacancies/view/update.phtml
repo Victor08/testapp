@@ -1,89 +1,75 @@
-<p>
-<form name="vacancies_update" method="post">
+<h1>
+    <?php
+    if (isset($_SESSION['action_result'])) {
+        echo $_SESSION['action_result'];
+        unset($_SESSION['action_result']);
+    }
+    ?>
+</h1>
+<form id="vacancies_add" method="post">
     <table>
+        <tr>
+            <td>
+                ID: <?php echo $updater->item_id; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Department
+            </td>
+            <td>
+                <select form="vacancies_add" name="<?php echo departments_data::$supported_departments['title']; ?>">        
+                    <?php
+                    foreach (departments_data::$supported_departments['properties'] as $k => $v) {
+                        if ($output_array[0]['dpt_id'] == $v) {
+                            $selected = "selected";
+                        } else {
+                            $selected = "";
+                        }
+                        echo "<option " . $selected . " value=\"" . $v . "\">" . $k . "</option>";
+                    }
+                    ?>               
+                </select>
+            </td>
+            <td><?php echo @$errors[departments_data::$supported_departments['title']] ?></td>
+        </tr>
         <?php
-        for ($i = 0; $i < count($result_array); $i++) {
+                    
+        foreach (vacancies_data::$supported_languages['properties'] as $k => $y) {
             ?>
-            <tr>
-                <td>
-                    id
-                </td>
-                <td>
-                    <?php echo $result_array[$i][0]; ?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    title
-                </td>
-                <td>
-                    <input type="text" name="title_<?php echo $i ?>" value="<?php echo $result_array[$i][2]; ?>"
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    department
-                </td>
-
-                <td>
-                    <select form="vacancies_update" name="<?php echo department::$db_id_field_name; ?>">        
-                        <?php
-                        foreach (department::$departments as $k => $v) {
-                            if ($result_array[$i][1] == $v) {
-                                $selected = "selected";
-                            } else {
-                                $selected = "";
-                            }
-                            echo "<option " . $selected . " value=\"" . $v . "\">" . $k . "</option>";
-                        }
-                        ?>               
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    language
-                </td>
-                <td>
-                    <?php echo vacancies_filter::$current_language; ?>
-                    <select form="vacancies_update" name="<?php echo vacancies_filter::$inputname_language . "_" . $i; ?>">
-                        <?php
-                        foreach (vacancies_filter::$supported_languages as $k => $v) {
-                            if (isset($_POST[vacancies_filter::$inputname_language . "_" . $i])) {
-                                if ($_POST[vacancies_filter::$inputname_language . "_" . $i] == $v) {
-                                    $selected = "selected";
-                                } else {
-                                    $selected = "";
-                                }
-                            } else {
-
-                                if (vacancies_filter::$current_language == $v) {
-                                    $selected = "selected";
-                                } else {
-                                    $selected = "";
-                                }
-                            }
-                            echo "<option " . $selected . " value=\"" . $v . "\">" . $k . "</option>";
-                        }
-                        ?>               
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    description
-                </td>
-                <td>
-                    <input type="textarea" name="description"  value="<?php echo $result_array[$i][3]; ?>">
-                </td>
-            </tr>
-            <tr><hr></tr>
-            <?php
+        <tr>
+            <td>
+                <?php echo "language: ".$k ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Title
+            </td>
+            <td>
+                <input type="text" name="title_<?php echo $y; ?>" value="<?php echo $output_array[0]['title_'.$y] ?>" >
+            </td>
+            <td><?php echo @$errors['title_'.$y] ?></td>
+        </tr>
+        <tr>
+            <td>
+                Description
+            </td>
+            <td>
+                <textarea name="description_<?php echo $y; ?>" ><?php echo $output_array[0]['description_'.$y]; ?></textarea>
+            </td>
+        </tr>
+        
+        <?php
         }
         ?>
-
-        <input type="hidden" name= "results_on_page" value="<?php echo count($result_array); ?>">
-        <input type="submit"  name="update" value="update">
+        
+              
+        <tr>
+            <td>
+                <input type="submit" name="update_vacancy" value="update" >
+            </td>
+        </tr>
     </table>
+
 </form>
-</p>

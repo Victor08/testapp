@@ -1,7 +1,6 @@
 <?php
 
-vacancies_filter::update_select("vacancies_chosen", $_POST['results_on_page'] = (int)$_POST['results_on_page']);
-
-if (isset($_POST['update_vac'])) {
-    vacancies_filter::update();
-}
+$updater = new vacancies_updater;
+$errors = $updater->error_messenger();
+$output_array = $updater->get_data();
+$updater->update($updater->form_query_substr());

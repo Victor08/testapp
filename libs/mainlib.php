@@ -54,9 +54,10 @@ class DB {
                     . "на строке " . $info[0]['line'] . "\n"
                     . "в файле " . $info[0]['file'] . "\n"
                     . "в аргументах:" . $error_arg_string . "время ошибки: " . date("Y-m-d H:i:s") . "\n"
-                    . "страница, на которой был сделан запрос:" . $_SERVER['REQUEST_URI'] . "\n"
+                    . "страница, на которой был сделан запрос:" . htmlspecialchars($_SERVER['REQUEST_URI']) . "\n"
+                    . "sql ошибка:".self::_($key)->error."\n"
                     . "=============================================";
-            file_put_contents('/logs/mysql.log', $error_message, FILE_APPEND);
+            //file_put_contents('/logs/mysql.log', $error_message, FILE_APPEND);
             echo $error_message;
             return false;
             exit();
@@ -94,10 +95,10 @@ class router {
                 }
             }
         }
-        if (!isset($_GET['module'])) {
+        if (empty($_GET['module'])) {
             $_GET['module'] = self::$default_module;
         }
-        if (!isset($_GET['page'])) {
+        if (empty($_GET['page'])) {
             $_GET['page'] = self::$default_page;
         }
     }

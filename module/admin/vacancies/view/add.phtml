@@ -1,20 +1,44 @@
-<p>
+<h1>
     <?php
     if (isset($_SESSION['action_result'])) {
         echo $_SESSION['action_result'];
         unset($_SESSION['action_result']);
     }
     ?>
-</p>
-<form name="vacancies_add" method="post">
+</h1>
+<form id="vacancies_add" method="post">
     <table>
-
+        <tr>
+            <td>
+                Vacancy language 
+            </td>
+            <td>
+                <select form="vacancies_add" name="language">
+                    <?php
+                    
+                    foreach (vacancies_data::$supported_languages['properties'] as $k => $y) {
+                        
+                            if ($addform->selected_language == $y) {
+                                $selected = "selected";
+                            } else {
+                                $selected = "";
+                            }
+                        ?>
+                        
+                        <option <?php echo @$selected; ?> value="<?php echo $y; ?>"> <?php echo $k; ?></option>
+                    <?php
+                    }
+                    ?>               
+                </select>
+            </td>
+            <td><?php echo @$add_errors['language']; ?></td>
+        </tr>
         <tr>
             <td>
                 Job title
             </td>
             <td>
-                <input type="text" name="title" value="<?php echo @$_POST['title'] ?>" >
+                <input type="text" name="title_<?php echo $addform->selected_language; ?>" value="<?php echo @$_POST['title_'.$addform->selected_language] ?>" >
             </td>
             <td><?php echo @$add_errors['title'] ?></td>
         </tr>
@@ -23,10 +47,10 @@
                 Department
             </td>
             <td>
-                <select form="vacancies_add" name="<?php echo department::$db_id_field_name; ?>">        
+                <select form="vacancies_add" name="<?php echo departments_data::$supported_departments['title']; ?>">        
                     <?php
-                    foreach (department::$departments as $k => $v) {
-                        if (@$_SESSION[department::$db_id_field_name] == $v) {
+                    foreach (departments_data::$supported_departments['properties'] as $k => $v) {
+                        if (@$_POST[departments_data::$supported_departments['title']] == $v) {
                             $selected = "selected";
                         } else {
                             $selected = "";
@@ -36,34 +60,15 @@
                     ?>               
                 </select>
             </td>
-            <td><?php echo @$add_errors[department::$db_id_field_name] ?></td>
+            <td><?php echo @$add_errors[departments_data::$supported_departments['title']] ?></td>
         </tr>
-        <tr>
-            <td>
-                Vacancy language 
-            </td>
-            <td>
-                <select form="vacancies_add" name="<?php echo vacancies_filter::$inputname_language; ?>">
-                    <?php
-                    foreach (vacancies_filter::$supported_languages as $k => $v) {
-                        if ($_SESSION[vacancies_filter::$inputname_language] == $v) {
-                            $selected = "selected";
-                        } else {
-                            $selected = "";
-                        }
-                        echo "<option " . $selected . " value=\"" . $v . "\">" . $k . "</option>";
-                    }
-                    ?>               
-                </select>
-            </td>
-            <td><?php echo @$add_errors[vacancies_filter::$inputname_language] ?></td>
-        </tr>
+        
         <tr>
             <td>
                 Description
             </td>
             <td>
-                <textarea name="description" value="<?php echo @$_POST['description'] ?>"></textarea>
+                <textarea name="description_<?php echo $addform->selected_language; ?>" ><?php echo @$_POST['description_'.$addform->selected_language] ?></textarea>
             </td>
         </tr>
         <tr>

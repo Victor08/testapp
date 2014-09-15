@@ -1,4 +1,5 @@
 <?php
-vacancies_filter::delete("vacancies_chosen_", (int) $_POST['results_on_page']);
+$remover = new vacancies_remover;
+$remover->delete();
 header ('Location: /admin/vacancies/select');
 exit();
