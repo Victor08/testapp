@@ -1,16 +1,25 @@
-<h1>
-    <?php
-    if (isset($_SESSION['action_result'])) {
-        echo $_SESSION['action_result'];
-        unset($_SESSION['action_result']);
+<?php
+if (isset($_SESSION['action_result'])){
+    ?>
+<div class="submenu">
+    <span>
+<?php
+    echo $_SESSION['action_result'];
+    unset($_SESSION['action_result']);
+    ?>
+    </span>
+</div>
+<?php
     }
     ?>
-</h1>
+<div class="reset"></div>
+
+<div class="submenu">
 <form id="vacancies_add" method="post">
     <table>
         <tr>
             <td>
-                Vacancy language 
+                <p>Vacancy language </p>
             </td>
             <td>
                 <select form="vacancies_add" name="language">
@@ -35,7 +44,7 @@
         </tr>
         <tr>
             <td>
-                Job title
+                <p>Job title</p>
             </td>
             <td>
                 <input type="text" name="title" value="<?php echo @$_POST['title_'.$addform->selected_language] ?>" >
@@ -44,7 +53,7 @@
         </tr>
         <tr>
             <td>
-                Department
+                <p>Department</p>
             </td>
             <td>
                 <select form="vacancies_add" name="<?php echo departments_data::$supported_departments['title']; ?>">        
@@ -65,7 +74,9 @@
         
         <tr>
             <td>
+                <p>
                 Description
+                </p>
             </td>
             <td>
                 <textarea name="description" ><?php echo @$_POST['description_'.$addform->selected_language] ?></textarea>
@@ -79,3 +90,5 @@
     </table>
 
 </form>
+</div>
+<div class="reset"></div>

@@ -1,19 +1,5 @@
 <?php
-abstract class department {
-    static public $id;
-    static public $title;
-    
-}
 
-abstract class vacancy {
-    static public $id;
-    static public $title ;
-    static public $department ;
-    static public $language;
-    static public $description;
-    static public $db_fields = array ();
-   
-}
 
 class departments_data {
     static public $db_table = "departments";
@@ -68,7 +54,7 @@ class vacancies_db_filter  {
     
     }
 
-
+    // contains current filtering options
     public $properties = array (   //!!!write a function to get this data automatically
         0 => array (
             'title' => "dpt_id",    // always use an appropriate db field name for 'title' value
@@ -84,6 +70,7 @@ class vacancies_db_filter  {
         
     );
 
+    // generating a database query substring containing query parameters
     public function form_query_substr () {
         $substring = "";
         foreach ($this->selected_properties as $k => $v){
@@ -96,6 +83,7 @@ class vacancies_db_filter  {
         return $substring;
     }
     
+    // proceeding a SELECT query to get an array with output data
     public function get_output_array ($substring){
         $query = "SELECT `id`, `dpt_id`, `title_".$this->selected_language."`, `description_".$this->selected_language."` FROM `".  vacancies_data::$db_table."` ".$substring;        
         if ($this->selected_language == vacancies_data::$supported_languages['default']){

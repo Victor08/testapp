@@ -1,19 +1,30 @@
-<h1>
+
 <?php
 if (isset($_SESSION['action_result'])){
+    ?>
+<div class="submenu">
+    <span>
+<?php
     echo $_SESSION['action_result'];
     unset($_SESSION['action_result']);
-}
-?>
-</h1>
+    ?>
+    </span>
+</div>
+<?php
+    }
+    ?>
+<div class="reset"></div>
+
+<div class="submenu">
 <form id="filter" method="post">
     <table>
+        
         <tr>
             <td>
-                <p>filter vacancies</p>
+                <span>filter vacancies</span>
             </td>
             <td>
-                language
+                <p>language</p>
             </td>
             <td>
                 <select form="filter" name="<?php echo vacancies_data::$supported_languages['title'] ?>" <?php echo vacancies_data::$supported_languages['required'] ?>>
@@ -37,7 +48,7 @@ if (isset($_SESSION['action_result'])){
             <?php
             foreach ($list->properties as $v) {
                 ?>
-                <td><?php echo $v['title']; ?></td>
+                <td><p><?php echo $v['title']; ?></p></td>
                 <td>
                     <select form="filter" name="<?php echo $v['title'] ?>" <?php echo $v['multiple'];
             echo $v['required']; ?> >
@@ -76,34 +87,47 @@ if (isset($_SESSION['action_result'])){
         </form>
         </td>
     </tr>
+</table>
+</div>
+<div class="reset"></div>
+
+<div class="container_3">
+<table>
+<tr>
+            <td><span>id</span></td>
+            <td><span>department</span></td>
+            <td><span>title</span></td>
+        </tr>
 <?php
 for ($i = 0; $i < count($output_array); $i++) {
     ?>
 
     <tr>
         <td>
+            <p><?php echo $output_array[$i][0]; ?></p>
+        </td>
+        <td>
+            <p><br> <?php echo array_search($output_array[$i]['dpt_id'], departments_data::$supported_departments['properties']); ?></p>
+        </td>
+        <td>
             <h2><?php echo $output_array[$i][2]; ?></h2>
-        </td>
-        <td>
+        </td>      
+        
             <form id="admin_tools" method="post">
+                <td>
                 <button form = "admin_tools" name="update" formaction="/admin/vacancies/update" value="<?php echo $output_array[$i][0]; ?>">update</button>
-            
+                </td>
+                <td>
                 <button form = "admin_tools" name="delete" formaction="/admin/vacancies/delete" value="<?php echo $output_array[$i][0]; ?>">delete</button>
-                             
+                </td>         
             </form>
-        </td>
+        
     </tr>
+    
+    <!--
     <tr>
         <td>
-            <p>vacancy id: <?php echo $output_array[$i][0]; ?></p>
-        </td>
-        <td>
-            <p>department: <?php echo array_search($output_array[$i]['dpt_id'], departments_data::$supported_departments['properties']); ?></p>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <p>description:<br><?php echo $output_array[$i][3]; ?></p>
+            <p>description: <?php echo $output_array[$i][3]; ?></p>
         </td>
     </tr>
     <tr>
@@ -111,7 +135,10 @@ for ($i = 0; $i < count($output_array); $i++) {
     <hr>
         </td>
     </tr>
+    -->
     <?php
 }
 ?>
 </table>
+</div>
+<div class="reset"></div>

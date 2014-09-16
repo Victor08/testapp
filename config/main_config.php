@@ -15,13 +15,4 @@ class Core {
     const DB_PASS = "ololo667";
     const DB_NAME = "veeam-test";
     
-    //top menu items
-    static $header_menu = array ("Vacancies", "admin tool");
-    
-    //default paths
-    const PATH_TO_TPL = "";
-    const PATH_TO_PAGE_SCRIPTS = "";
-    const PATH_TO_MODULE_TPL = "";
-    const PATH_TO_MODULE_SCRIPTS = "";
-
 }

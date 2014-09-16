@@ -61,6 +61,8 @@ class vacancies_admin_tools {
 
 
 class vacancies_remover extends vacancies_admin_tools {
+    
+    // to remove single item
     public function delete () {
         if (!empty($_POST['delete'])) {
             $_POST['delete'] = DB::mres($_POST['delete']);
@@ -100,6 +102,7 @@ class vacancies_append extends vacancies_admin_tools {
         ),
     );
     
+    // checking data sent via the web form
     public function error_messenger () {
         $errors = array ();
         if (isset($_POST['add_new_vacancy'])) {
@@ -123,7 +126,7 @@ class vacancies_append extends vacancies_admin_tools {
         }
     }
    
-    
+    // generating a database query substring, containing query parameters
     public function form_query_substr () {
         $substring = "";
         foreach ($this->set_properties as $k => $v){
@@ -141,6 +144,7 @@ class vacancies_append extends vacancies_admin_tools {
         return $substring;
     }
     
+    // proceeding an INSERT query to add a single item
     public function add_new ($substring) {
         if (!empty($substring)){
             $query = "INSERT INTO `". vacancies_data::$db_table ."` SET ".$substring;
@@ -179,7 +183,7 @@ class vacancies_updater extends vacancies_admin_tools {
             }
         }
     
-    
+    // checking data, sent via the web form
     public function error_messenger () {
         $errors = array ();
         if (isset($_POST['update_vacancy'])) {
@@ -202,6 +206,7 @@ class vacancies_updater extends vacancies_admin_tools {
         }
     }
     
+    // generating a database query substring, containing query parameters
     public function form_query_substr () {
         $substring = "";
         foreach ($this->set_properties as $k => $v){
@@ -214,6 +219,7 @@ class vacancies_updater extends vacancies_admin_tools {
         return $substring;
     }
     
+    //proceeding an UPDATE query for single item
     public function update ($substring) {
        
         if (!empty($substring)){
@@ -232,6 +238,7 @@ class vacancies_updater extends vacancies_admin_tools {
         }
     }
     
+    // getting current data for a single item
     public function get_data () {
         $query = "SELECT * FROM `".vacancies_data::$db_table."` WHERE `id`= ".$this->item_id;
         $result = DB::q($query);

@@ -6,7 +6,10 @@ class DB {
     static public $mysqli = array();
     static public $connect = array();
 
-    //the function for setting up a database connection 
+    /* the function for setting up a database connection 
+     * 
+     */
+ 
     static public function _($key = 0) {
         if (!isset(self::$mysqli['$key'])) {
             if (!isset(self::$connect['server'])) {
@@ -41,7 +44,7 @@ class DB {
         unset(self::$mysqli[$key]);
     }
     
-    //the function for creating a database query
+    //the function for proceeding a database query
     static public function q($query, $key = 0) {
         $result = self::_($key)->query($query);
         if ($result === false) {
@@ -72,6 +75,9 @@ class DB {
 
 }
 
+/* The class is used for controller purposes
+ * 
+ */
 class router {
     static public $default_module = 'vacancies';
     static public $default_page = 'show';
@@ -79,6 +85,7 @@ class router {
         return $_SERVER['DOCUMENT_ROOT'].'/../module/errors';
     }
 
+    // Function gets routing parameters out of a URI string
     static public function set_route_params () {
         if (isset($_GET['route'])) {
             $route = explode('/', $_GET['route']);
@@ -103,6 +110,7 @@ class router {
         }
     }
     
+    // function for checking invalid URIs
     static public function if_exists ($file) {
         if (file_exists($file)){
             return $file;

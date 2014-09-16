@@ -1,11 +1,14 @@
+<div class="submenu">
 <form id="filter" method="post">
     <table>
         <tr>
             <td>
-                <p>filter vacancies</p>
+                <p><span>filter vacancies</span></p>
             </td>
             <td>
+                <p>
                 language
+                </p>
             </td>
             <td>
                 <select form="filter" name="<?php echo vacancies_data::$supported_languages['title'] ?>" <?php echo vacancies_data::$supported_languages['required'] ?>>
@@ -29,7 +32,7 @@
             <?php
             foreach ($list->properties as $v) {
                 ?>
-                <td><?php echo $v['title']; ?></td>
+            <td><p><?php echo $v['title']; ?></p></td>
                 <td>
                     <select form="filter" name="<?php echo $v['title'] ?>" <?php echo $v['multiple'];
             echo $v['required']; ?> >
@@ -59,14 +62,27 @@
         </tr>
     </table>
 </form>
+</div>
+<div class="reset"></div>
+
+<div class="container_3">
 
 <?php
 for ($i = 0; $i < count($output_array); $i++) {
     ?>
-    <h2><?php echo $output_array[$i][2]; ?></h2>
-    <p>vacancy id: <?php echo $output_array[$i][0]; ?></p>
-    <p>department: <?php echo array_search($output_array[$i]['dpt_id'], departments_data::$supported_departments['properties']); ?></p>
-    <p>description:<br><?php echo $output_array[$i][3]; ?></p>
-    <hr>
+    <div class="grid_3">
+        <h2><?php echo $output_array[$i][2]; ?></h2>
+        <p>vacancy id: <?php echo $output_array[$i][0]; ?></p>
+        <p>department: <?php echo array_search($output_array[$i]['dpt_id'], departments_data::$supported_departments['properties']); ?></p>
+        <p>description:<br><?php echo $output_array[$i][3]; ?></p>
+        <hr>
+    </div>
+    
+
     <?php
 }
+?>
+    
+    
+</div>
+<div class="reset"></div>

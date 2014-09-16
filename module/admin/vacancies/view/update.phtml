@@ -1,22 +1,32 @@
-<h1>
-    <?php
-    if (isset($_SESSION['action_result'])) {
-        echo $_SESSION['action_result'];
-        unset($_SESSION['action_result']);
+<?php
+if (isset($_SESSION['action_result'])){
+    ?>
+<div class="submenu">
+    <span>
+<?php
+    echo $_SESSION['action_result'];
+    unset($_SESSION['action_result']);
+    ?>
+    </span>
+</div>
+<?php
     }
     ?>
-</h1>
+<div class="reset"></div>
+
+<div class="submenu">
+
 <form id="vacancies_add" method="post">
     <input type="hidden" name="update" value="<?php echo $updater->item_id; ?>">
     <table>
         <tr>
             <td>
-                ID: <?php echo $updater->item_id; ?>
+                <p>ID: <?php echo $updater->item_id; ?></p>
             </td>
         </tr>
         <tr>
             <td>
-                Department
+                <p>Department</p>
             </td>
             <td>
                 <select form="vacancies_add" name="<?php echo departments_data::$supported_departments['title']; ?>">        
@@ -40,12 +50,12 @@
             ?>
         <tr>
             <td>
-                <?php echo "language: ".$k ?>
+                <p><?php echo "language: ".$k ?></p>
             </td>
         </tr>
         <tr>
             <td>
-                Title
+                <p>Title</p>
             </td>
             <td>
                 <input type="text" name="title_<?php echo $y; ?>" value="<?php echo $output_array[0]['title_'.$y] ?>" >
@@ -54,7 +64,7 @@
         </tr>
         <tr>
             <td>
-                Description
+                <p>Description</p>
             </td>
             <td>
                 <textarea name="description_<?php echo $y; ?>" ><?php echo $output_array[0]['description_'.$y]; ?></textarea>
@@ -74,3 +84,5 @@
     </table>
 
 </form>
+</div>
+<div class="reset"></div>

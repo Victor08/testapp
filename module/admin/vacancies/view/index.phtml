@@ -6,15 +6,37 @@
         <link rel="stylesheet" type="text/css" href="/css/global.css">
     </head>
     <body>
-        <p>MENU</p>
-        <div>
-            <a href="/vacancies/show">Vacancies</a>
-        </div>
-        <div>
-            <a href="/admin/vacancies/select">Admin</a>
-        </div>
+        
+       
+        <div class="content_bg">
+            <!-- блок контента -->
+            <div class="content">
+
+                <!-- блок меню -->
+
+                <div class="menu">
+                    <?php 
+                    foreach (template::$menu as $k => $v) {
+                    ?>
+                    <a href="<?php echo $v?>">
+                        <div class=" <?php if ($_SERVER['REQUEST_URI'] == $v) { echo "menu_cell_active"; } else { echo "menu_cell"; } ?> ">
+                            <?php echo $k ?> <span></span>
+                        </div>
+                    </a>
+                    <?php 
+                    } 
+                    ?>
+                </div>
+                
+            
+        
+        <div class="reset"></div>
+        
+        
+        
         <?php
         include_once router::if_exists(__DIR__ . '/' . $_GET['page'] . '.phtml');
         ?>
-
+            </div>
+        </div>
     </body>
