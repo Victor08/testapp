@@ -1,0 +1,94 @@
+<?php
+if (isset($_SESSION['action_result'])){
+    ?>
+<div class="submenu">
+    <span>
+<?php
+    echo $_SESSION['action_result'];
+    unset($_SESSION['action_result']);
+    ?>
+    </span>
+</div>
+<?php
+    }
+    ?>
+<div class="reset"></div>
+
+<div class="submenu">
+<form id="vacancies_add" method="post">
+    <table>
+        <tr>
+            <td>
+                <p>Vacancy language </p>
+            </td>
+            <td>
+                <select form="vacancies_add" name="language">
+                    <?php
+                    
+                    foreach (vacancies_data::$supported_languages['properties'] as $k => $y) {
+                        
+                            if ($addform->selected_language == $y) {
+                                $selected = "selected";
+                            } else {
+                                $selected = "";
+                            }
+                        ?>
+                        
+                        <option <?php echo @$selected; ?> value="<?php echo $y; ?>"> <?php echo $k; ?></option>
+                    <?php
+                    }
+                    ?>               
+                </select>
+            </td>
+            <td><?php echo @$add_errors['language']; ?></td>
+        </tr>
+        <tr>
+            <td>
+                <p>Job title</p>
+            </td>
+            <td>
+                <input type="text" name="title" value="<?php echo @$_POST['title_'.$addform->selected_language] ?>" >
+            </td>
+            <td><?php echo @$add_errors['title'] ?></td>
+        </tr>
+        <tr>
+            <td>
+                <p>Department</p>
+            </td>
+            <td>
+                <select form="vacancies_add" name="<?php echo departments_data::$supported_departments['title']; ?>">        
+                    <?php
+                    foreach (departments_data::$supported_departments['properties'] as $k => $v) {
+                        if (@$_POST[departments_data::$supported_departments['title']] == $v) {
+                            $selected = "selected";
+                        } else {
+                            $selected = "";
+                        }
+                        echo "<option " . $selected . " value=\"" . $v . "\">" . $k . "</option>";
+                    }
+                    ?>               
+                </select>
+            </td>
+            <td><?php echo @$add_errors[departments_data::$supported_departments['title']] ?></td>
+        </tr>
+        
+        <tr>
+            <td>
+                <p>
+                Description
+                </p>
+            </td>
+            <td>
+                <textarea name="description" ><?php echo @$_POST['description_'.$addform->selected_language] ?></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" name="add_new_vacancy" value="Add" >
+            </td>
+        </tr>
+    </table>
+
+</form>
+</div>
+<div class="reset"></div>

@@ -1,0 +1,144 @@
+
+<?php
+if (isset($_SESSION['action_result'])){
+    ?>
+<div class="submenu">
+    <span>
+<?php
+    echo $_SESSION['action_result'];
+    unset($_SESSION['action_result']);
+    ?>
+    </span>
+</div>
+<?php
+    }
+    ?>
+<div class="reset"></div>
+
+<div class="submenu">
+<form id="filter" method="post">
+    <table>
+        
+        <tr>
+            <td>
+                <span>filter vacancies</span>
+            </td>
+            <td>
+                <p>language</p>
+            </td>
+            <td>
+                <select form="filter" name="<?php echo vacancies_data::$supported_languages['title'] ?>" <?php echo vacancies_data::$supported_languages['required'] ?>>
+                    <option value="">default</option>
+                    <?php
+                    foreach (vacancies_data::$supported_languages['properties'] as $k => $y) {
+                        if (isset($_POST[vacancies_data::$supported_languages['title']])) {
+                            if ($_POST[vacancies_data::$supported_languages['title']] == $y) {
+                                $selected = "selected";
+                            } else {
+                                $selected = "";
+                            }
+                        }
+                        ?>               
+                        <option <?php echo @$selected; ?> value="<?php echo $y ?>"><?php echo $k; ?></option>                
+                        <?php
+                    }
+                    ?>
+                </select>
+            </td>
+            <?php
+            foreach ($list->properties as $v) {
+                ?>
+                <td><p><?php echo $v['title']; ?></p></td>
+                <td>
+                    <select form="filter" name="<?php echo $v['title'] ?>" <?php echo $v['multiple'];
+            echo $v['required']; ?> >
+                        <option value="">not specified</option>
+                        <?php
+                        foreach ($v['properties'] as $k => $y) {
+                            if (isset($_POST[$v['title']])) {
+                                if ($_POST[$v['title']] == $y) {
+                                    $selected = "selected";
+                                } else {
+                                    $selected = "";
+                                }
+                            }
+                            ?>               
+                            <option <?php echo @$selected; ?> value="<?php echo $y; ?>"><?php echo $k; ?></option>                
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </td>
+                <?php
+            }
+            ?>
+            <td>
+                <input type="submit" value="show">
+            </td>
+        </tr>
+    </table>
+</form>
+
+<table>
+    <tr>
+        <td>
+        <form id="add" method="post">
+            <button form="add" formaction="/admin/vacancies/add">Add new vacancy</button>
+        </form>
+        </td>
+    </tr>
+</table>
+</div>
+<div class="reset"></div>
+
+<div class="container_3">
+<table>
+<tr>
+            <td><span>id</span></td>
+            <td><span>department</span></td>
+            <td><span>title</span></td>
+        </tr>
+<?php
+for ($i = 0; $i < count($output_array); $i++) {
+    ?>
+
+    <tr>
+        <td>
+            <p><?php echo $output_array[$i][0]; ?></p>
+        </td>
+        <td>
+            <p><br> <?php echo array_search($output_array[$i]['dpt_id'], departments_data::$supported_departments['properties']); ?></p>
+        </td>
+        <td>
+            <h2><?php echo $output_array[$i][2]; ?></h2>
+        </td>      
+        
+            <form id="admin_tools" method="post">
+                <td>
+                <button form = "admin_tools" name="update" formaction="/admin/vacancies/update" value="<?php echo $output_array[$i][0]; ?>">update</button>
+                </td>
+                <td>
+                <button form = "admin_tools" name="delete" formaction="/admin/vacancies/delete" value="<?php echo $output_array[$i][0]; ?>">delete</button>
+                </td>         
+            </form>
+        
+    </tr>
+    
+    <!--
+    <tr>
+        <td>
+            <p>description: <?php echo $output_array[$i][3]; ?></p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+    <hr>
+        </td>
+    </tr>
+    -->
+    <?php
+}
+?>
+</table>
+</div>
+<div class="reset"></div>
