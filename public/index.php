@@ -1,14 +1,14 @@
 <?php
 session_start();
 // config
-include_once __DIR__.'/../config/main_config.php';
-include_once __DIR__.'/../config/template.php';
+require_once __DIR__.'/../config/main_config.php';
+require_once __DIR__.'/../config/template.php';
 //libraries
-include_once __DIR__.'/../libs/mainlib.php';
-include_once __DIR__.'/../libs/additional_functions.php';
+require_once __DIR__.'/../libs/mainlib.php';
+require_once __DIR__.'/../libs/additional_functions.php';
 
 //router
 
-include_once __DIR__.'/../router.php';
+require_once __DIR__.'/../router.php';
 
 ?>
