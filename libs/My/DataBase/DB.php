@@ -12,6 +12,7 @@
  * @author antonio
  */
 namespace My\DataBase;
+use \config;
 
 class DB {
     static public $mysqli = array();
@@ -24,18 +25,18 @@ class DB {
     static public function _($key = 0) {
         if (!isset(self::$mysqli['$key'])) {
             if (!isset(self::$connect['server'])) {
-                self::$connect['server'] = Core::DB_SERVER;
+                self::$connect['server'] = config\Core::DB_SERVER;
             }
             if (!isset(self::$connect['user'])) {
-                self::$connect['user'] = Core::DB_LOGIN;
+                self::$connect['user'] = config\Core::DB_LOGIN;
             }
             if (!isset(self::$connect['pass'])) {
-                self::$connect['pass'] = Core::DB_PASS;
+                self::$connect['pass'] = config\Core::DB_PASS;
             }
             if (!isset(self::$connect['db'])) {
-                self::$connect['db'] = Core::DB_NAME;
+                self::$connect['db'] = config\Core::DB_NAME;
             }
-            self::$mysqli[$key] = @new mysqli (self::$connect['server'], self::$connect['user'], self::$connect['pass'], self::$connect['db']);
+            self::$mysqli[$key] = @new \mysqli (self::$connect['server'], self::$connect['user'], self::$connect['pass'], self::$connect['db']);
 
             if (mysqli_connect_errno()) {
                 echo 'Не удалось подключиться к базе данных';

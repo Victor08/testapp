@@ -1,3 +1,7 @@
+<?php
+use \My\Router;
+use \template\simple;
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +20,7 @@
 
                 <div class="menu">
                     <?php 
-                    foreach (template::$menu as $k => $v) {
+                    foreach (simple\template::$menu as $k => $v) {
                     ?>
                     <a href="<?php echo $v?>">
                         <div class=" <?php if ($_SERVER['REQUEST_URI'] == $v) { echo "menu_cell_active"; } else { echo "menu_cell"; } ?> ">
@@ -35,7 +39,7 @@
         
         
         <?php
-        include_once router::if_exists(__DIR__ . '/../../module/' . $_GET['module'] . '/view/' . $_GET['page'] . '.phtml');
+        include_once Router\router::if_exists(__DIR__ . '/../../module/' . $_GET['module'] . '/view/' . $_GET['page'] . '.phtml');
         ?>
             </div>
         </div>

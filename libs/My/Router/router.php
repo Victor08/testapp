@@ -19,14 +19,14 @@ class router {
             $route = explode('/', $_GET['route']);
             for ($i=0; $i<count($route); $i++){
                 if ($i==0) {
-                    $_GET['module'] = hschAll($route[$i]);
+                    $_GET['module'] = \hschAll($route[$i]);
                 } elseif ($i==1) {
-                    $_GET['page'] = hschAll($route[$i]);
+                    $_GET['page'] = \hschAll($route[$i]);
                 } elseif ( $i>1 ){
                     if (!isset($_GET['extra'])) {
                         $_GET['extra'] = array();
                     }
-                    array_push ($_GET['extra'], hschAll($route[$i]));
+                    array_push ($_GET['extra'], \hschAll($route[$i]));
                 }
             }
         }

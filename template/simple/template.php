@@ -1,9 +1,10 @@
 <?php
-
+namespace template\simple ;
 /* 
  * The file contains template view configuration
  */
 
+    
 class template {
     static public $menu = array (
         "vacancies" => "/vacancies/show", 

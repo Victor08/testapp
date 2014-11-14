@@ -3,19 +3,35 @@
 namespace My\AutoLoader;
 
 class AutoLoader {
-    private $config;
+    private $include_paths;
     
-    public function __construct(config $conf) {
-        $this->config = $conf;
+    function __construct(config $conf) {
+        $this->include_paths = $conf->get_include_paths();
     }
     
-    function autoload ($class){
-        foreach ($this->config->my_include_paths as $path) {
-            if (file_exists($path."/".$class.".php")){
-                include_once $path."/".$class.".php"; 
-                return TRUE;              
+    public function autoload ($class) {
+        $classname = str_replace ("\\" , '/' , $class) . ".php";
+        $found = false;
+        foreach ($this->include_paths as $path) {            
+            if (file_exists($path."/".$classname)){
+                include_once $path."/".$classname;
+                $found = true;
+                break;
+            } else if (file_exists($path."/libs/".$classname)) {
+                include_once $path."/libs/".$classname;
+                $found = true;
+                break;
+            } 
+        }
+        if (!$found){
+            if (file_exists($_SERVER['DOCUMENT_ROOT']."/../".$classname)) {
+                include_once $_SERVER['DOCUMENT_ROOT']."/../".$classname;
+
             }
         }
-        return FALSE;
     }
+    
+    
+    
+   
 }
