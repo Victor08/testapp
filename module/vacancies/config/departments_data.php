@@ -6,9 +6,9 @@
  * and open the template in the editor.
  */
 
-namespace module\vacancies\config\DepartmentsData;
+namespace module\vacancies\config;
 
-class DepartmentsData {
+class departments_data {
     static public $db_table = "departments";
     static public $supported_departments = array (    //!!!write a function to get this data automatically
         'title' => 'dpt_id',

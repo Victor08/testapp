@@ -1,3 +1,8 @@
+<?php
+use \module\vacancies\libs;
+use \module\vacancies\config;
+
+?>
 <div class="submenu">
 <form id="filter" method="post">
     <table>
@@ -11,12 +16,12 @@
                 </p>
             </td>
             <td>
-                <select form="filter" name="<?php echo vacancies_data::$supported_languages['title'] ?>" <?php echo vacancies_data::$supported_languages['required'] ?>>
+                <select form="filter" name="<?php echo config\vacancies_data::$supported_languages['title'] ?>" <?php echo config\vacancies_data::$supported_languages['required'] ?>>
                     <option value="">default</option>
                     <?php
-                    foreach (vacancies_data::$supported_languages['properties'] as $k => $y) {
-                        if (isset($_POST[vacancies_data::$supported_languages['title']])) {
-                            if ($_POST[vacancies_data::$supported_languages['title']] == $y) {
+                    foreach (config\vacancies_data::$supported_languages['properties'] as $k => $y) {
+                        if (isset($_POST[config\vacancies_data::$supported_languages['title']])) {
+                            if ($_POST[config\vacancies_data::$supported_languages['title']] == $y) {
                                 $selected = "selected";
                             } else {
                                 $selected = "";
@@ -73,7 +78,7 @@ for ($i = 0; $i < count($output_array); $i++) {
     <div class="grid_3">
         <h2><?php echo $output_array[$i][2]; ?></h2>
         <p>vacancy id: <?php echo $output_array[$i][0]; ?></p>
-        <p>department: <?php echo array_search($output_array[$i]['dpt_id'], departments_data::$supported_departments['properties']); ?></p>
+        <p>department: <?php echo array_search($output_array[$i]['dpt_id'], config\departments_data::$supported_departments['properties']); ?></p>
         <p>description:<br><?php echo $output_array[$i][3]; ?></p>
         <hr>
     </div>

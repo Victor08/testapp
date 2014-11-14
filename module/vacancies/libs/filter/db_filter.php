@@ -5,8 +5,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-namespace vacancies\libs\filter;
+namespace module\vacancies\libs\filter;
 use module\vacancies\config;
+use My\Database;
 
 class db_filter  {
     public $selected_language = "en";
@@ -14,10 +15,10 @@ class db_filter  {
  
     
     public function __construct () {
-        if (!empty($_POST[vacancies_data::$supported_languages['title']])) {
-            $this->selected_language = $_POST[vacancies_data::$supported_languages['title']];
+        if (!empty($_POST[config\vacancies_data::$supported_languages['title']])) {
+            $this->selected_language = $_POST[config\vacancies_data::$supported_languages['title']];
         } else {
-            $this->selected_language = vacancies_data::$supported_languages['default'];
+            $this->selected_language = config\vacancies_data::$supported_languages['default'];
         }
         for ($i=0; $i<count($this->properties); $i++){
             if (!empty($_POST[$this->properties[$i]['title']])){
@@ -58,17 +59,17 @@ class db_filter  {
     
     // proceeding a SELECT query to get an array with output data
     public function get_output_array ($substring){
-        $query = "SELECT `id`, `dpt_id`, `title_".$this->selected_language."`, `description_".$this->selected_language."` FROM `".  vacancies_data::$db_table."` ".$substring;        
-        if ($this->selected_language == vacancies_data::$supported_languages['default']){
-            $result = DB::q($query);
+        $query = "SELECT `id`, `dpt_id`, `title_".$this->selected_language."`, `description_".$this->selected_language."` FROM `".  config\vacancies_data::$db_table."` ".$substring;        
+        if ($this->selected_language == config\vacancies_data::$supported_languages['default']){
+            $result = DataBase\DB::q($query);
             $result_array = $result->fetch_all(MYSQLI_BOTH);
         } else {
-            $result = DB::q($query);
+            $result = DataBase\DB::q($query);
             $result_array = $result->fetch_all(MYSQLI_BOTH);
             for ($i=0; $i<count($result_array); $i++) {
                 if (empty($result_array[$i]['title_'.$this->selected_language])) {
-                    $query = "SELECT `id`, `dpt_id`, `title_".  vacancies_data::$supported_languages['default']."`, `description_".  vacancies_data::$supported_languages['default']."` FROM `".vacancies_data::$db_table."` WHERE `id`=".$result_array[$i]['id'];
-                    $element = DB::q($query);
+                    $query = "SELECT `id`, `dpt_id`, `title_".  config\vacancies_data::$supported_languages['default']."`, `description_".  config\vacancies_data::$supported_languages['default']."` FROM `".config\vacancies_data::$db_table."` WHERE `id`=".$result_array[$i]['id'];
+                    $element = DataBase\DB::q($query);
                     $element_array = $element->fetch_all(MYSQLI_BOTH);
                     $result_array[$i] = $element_array[0];
                 }

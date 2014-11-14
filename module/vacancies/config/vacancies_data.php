@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-namespace module\vacancies\config\VacanciesData;
+namespace module\vacancies\config;
 
 class vacancies_data {
     static public $db_table = "vacancies"; 
