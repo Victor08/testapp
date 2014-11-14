@@ -1,3 +1,4 @@
+
 <?php
 use \My\Router;
 use \template\simple;
@@ -39,7 +40,7 @@ use \template\simple;
         
         
         <?php
-        include_once Router\router::if_exists(__DIR__ . '/../../module/' . $_GET['module'] . '/view/' . $_GET['page'] . '.phtml');
+        include_once Router\router::if_exists($_SERVER['DOCUMENT_ROOT']. '/../module/' . $_GET['module'] . '/view/' . $_GET['page'] . '.phtml');
         ?>
             </div>
         </div>

@@ -1,4 +1,8 @@
 <?php
+use \module\vacancies\libs;
+use \module\vacancies\config;
+
+
 if (isset($_SESSION['action_result'])){
     ?>
 <div class="submenu">
@@ -29,9 +33,9 @@ if (isset($_SESSION['action_result'])){
                 <p>Department</p>
             </td>
             <td>
-                <select form="vacancies_add" name="<?php echo departments_data::$supported_departments['title']; ?>">        
+                <select form="vacancies_add" name="<?php echo config\departments_data::$supported_departments['title']; ?>">        
                     <?php
-                    foreach (departments_data::$supported_departments['properties'] as $k => $v) {
+                    foreach (config\departments_data::$supported_departments['properties'] as $k => $v) {
                         if ($output_array[0]['dpt_id'] == $v) {
                             $selected = "selected";
                         } else {
@@ -42,11 +46,11 @@ if (isset($_SESSION['action_result'])){
                     ?>               
                 </select>
             </td>
-            <td><?php echo @$errors[departments_data::$supported_departments['title']] ?></td>
+            <td><?php echo @$errors[config\departments_data::$supported_departments['title']] ?></td>
         </tr>
         <?php
                     
-        foreach (vacancies_data::$supported_languages['properties'] as $k => $y) {
+        foreach (config\vacancies_data::$supported_languages['properties'] as $k => $y) {
             ?>
         <tr>
             <td>

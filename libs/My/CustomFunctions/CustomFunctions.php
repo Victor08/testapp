@@ -1,5 +1,4 @@
 <?php
-namespace My\CustomFunctions;
 
 function trimAll ($element) {
 	if (!is_array ($element)) {
